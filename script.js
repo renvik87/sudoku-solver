@@ -303,22 +303,6 @@ const exampleBoard2 = [
   "1",
 ];
 
-/* SOLUTION
-  //
-  [7, 1, 8, 5, 3, 6, 9, 4, 2],
-  [6, 4, 5, 1, 9, 2, 3, 7, 8],
-  [3, 9, 2, 4, 8, 7, 1, 5, 6],
-  //
-  [5, 3, 7, 8, 2, 1, 4, 6, 9],
-  [2, 8, 9, 6, 4, 3, 5, 1, 7],
-  [4, 6, 1, 9, 7, 5, 2, 8, 3],
-  //
-  [9, 2, 6, 7, 1, 4, 8, 3, 5],
-  [1, 7, 3, 2, 5, 8, 6, 9, 4],
-  [8, 5, 4, 3, 6, 9, 7, 2, 1],
-];
-*/
-
 const cells = [];
 
 for (let colPos = 0; colPos <= 8; colPos++) {
@@ -464,7 +448,6 @@ const addCandidateForCell = function (number, cellsArr) {
 };
 
 const moveLogg = [];
-let emptyCellCounter;
 let numbersFilledThisIteration = 0;
 let currentCellIndex;
 let currentCellId;
@@ -473,8 +456,6 @@ let currentBoxId;
 let multipleCandidates = [];
 let excludeCollection = false;
 let skipSingles = false;
-let previousMultipleCellId = undefined;
-let multipleCandidatesCopy = [];
 let moveCounter = 0;
 const solveSudoku = () => {
   do {
@@ -488,15 +469,6 @@ const solveSudoku = () => {
             cell.isMultiple = false;
             cell.moveLoggDepth = 0;
           }
-          // if (cell.id === `cell-0-1` && loopCounter % 10000 === 0) {
-          //   console.log(
-          //     `Loop ${loopCounter}: Cell.id: ${cell.id}, Value: ${
-          //       cell.value
-          //     }, Cand: ${[...cell.candidateNumbers]}, Excl: ${[
-          //       ...cell.bannedNumbers,
-          //     ]}`
-          //   );
-          // }
         });
       };
       clearOldBannedNumbers(cells);
@@ -598,14 +570,12 @@ const solveSudoku = () => {
 
     if (!isGameFinished(cells)) {
       skipSingles = false;
-      // console.log(`Finished with single, looking for multiple`);
       for (
         let candidateListLength = 2;
         candidateListLength <= 9;
         candidateListLength++
       ) {
         for (const cell of cells) {
-          // cells.forEach((cell) => {
           if (
             cell.candidateNumbers.length === candidateListLength &&
             numbersFilledThisIteration === 0
@@ -629,7 +599,6 @@ const solveSudoku = () => {
                     ...cell.candidateNumbers,
                   ]}, excl ${[...cell.bannedNumbers]}`
                 );
-                // console.log(`Lenght of moveLogg:${moveLogg.length}`);
                 ++numbersFilledThisIteration;
                 break;
               }
@@ -646,15 +615,10 @@ const solveSudoku = () => {
       // at the first "multiple choice".
 
       if (numbersFilledThisIteration === 0) {
-        // console.log(`Nothing found, starting to remove:`);
         for (let i = moveLogg.length - 1; i >= 0; i--) {
           currentCellIndex = cells.indexOf(
             cells.find((element) => element.id === moveLogg[i].id)
           );
-          // console.log(currentCellIndex, cells[currentCellIndex]);
-          // currentCellIndex = cells.filter((cell) => {
-          //   return moveLogg[i].id === cell.id;
-          // })[0];
           if (cells[currentCellIndex].isMultiple) {
             cells[currentCellIndex].bannedNumbers.push(moveLogg[i].value);
             console.log(
@@ -683,15 +647,11 @@ const solveSudoku = () => {
             cells[currentCellIndex].value = ``;
             moveLogg.pop();
             moveCounter++;
-            // console.log(moveLogg.length);
-            // numbersFilledThisIteration++;
           }
         }
       }
     } else {
       break;
-      console.log(`Game-over check returns true`);
-      // break;
     }
   } while (
     !isGameFinished(cells) &&
