@@ -453,7 +453,6 @@ let currentCellIndex;
 let currentCellId;
 let currentCollection;
 let currentBoxId;
-let multipleCandidates = [];
 let excludeCollection = false;
 let skipSingles = false;
 let moveCounter = 0;
@@ -519,8 +518,6 @@ const solveSudoku = () => {
                   moveLogg.push({
                     id: cell.id,
                     value: number,
-                    moveLoggDepth: moveLogg.length,
-                    multipleCandidates: cell.candidateNumbers.length > 1,
                   });
                   moveCounter++;
                   console.log(
@@ -549,8 +546,6 @@ const solveSudoku = () => {
             moveLogg.push({
               id: cell.id,
               value: cell.value,
-              moveLoggDepth: moveLogg.length,
-              multipleCandidates: cell.candidateNumbers.length > 1,
             });
             moveCounter++;
             console.log(
@@ -587,8 +582,6 @@ const solveSudoku = () => {
                 moveLogg.push({
                   id: cell.id,
                   value: cell.value,
-                  moveLoggDepth: moveLogg.length,
-                  multipleCandidates: cell.candidateNumbers.length > 1,
                 });
                 moveCounter++;
                 cell.moveLoggDepth = moveLogg.length;
@@ -631,7 +624,7 @@ const solveSudoku = () => {
             cells[currentCellIndex].value = ``;
             skipSingles = true;
 
-            multipleCandidates.push(moveLogg.pop());
+            moveLogg.pop();
             moveCounter++;
 
             numbersFilledThisIteration++;
