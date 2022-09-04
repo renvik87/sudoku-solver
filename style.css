@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+html {
+  height: 650px;
+  width: 650px;
+}
+
+body {
+  font-family: "Press Start 2P", sans-serif;
+  color: #eee;
+  background-color: #222;
+  display: grid;
+  grid-template-columns: 1, 1fr;
+  grid-template-rows: 2, 1fr;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #eee;
+  border: 0 1px 0 1px solid white;
+  font-family: inherit;
+  font-size: 1em;
+  height: 50px;
+  margin: 2px 1px 5px;
+  width: 100%;
+}
+
+.board {
+  border: 5px solid white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.box {
+  display: grid;
+  border: 3px solid white;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  border: 1px solid white;
+  height: 50px;
+  /* text-align: center; */
+}
+
+input.cell {
+  font-family: inherit;
+  background: #222;
+  color: #eee;
+  text-align: center;
+  font-size: 2em;
+  width: 100%;
+}
