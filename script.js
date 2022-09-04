@@ -343,6 +343,17 @@ for (let colPos = 0; colPos <= 8; colPos++) {
 
 const numbers = "123456789".split("");
 
+const resetAllCells = function (cellsArr) {
+  cellsArr.forEach((cell) => {
+    cell.value = ``;
+    cell.candidateNumbers.splice(0);
+    cell.excludeForCurrentNumber = false;
+    cell.bannedNumbers.splice(0);
+    cell.moveLoggDepth = 0;
+    cell.isMultiple = false;
+  });
+};
+
 const updateUI = function (cellsArr) {
   cellsArr.forEach((cell) => {
     document.getElementById(cell.id).value = cell.value;
@@ -656,17 +667,20 @@ const solveSudoku = () => {
 };
 btnExample.addEventListener("click", function (e) {
   e.preventDefault();
+  resetAllCells(cells);
+  moveLogg.splice(0);
   cells.forEach((cell, cellIndex) => {
     cell.value = exampleBoard[cellIndex];
   });
+  moveCounter = 0;
   updateUI(cells);
 });
 
 btnReset.addEventListener("click", function (e) {
   e.preventDefault();
-  cells.forEach((cell) => {
-    cell.value = ``;
-  });
+  resetAllCells(cells);
+  moveLogg.splice(0);
+  moveCounter = 0;
   updateUI(cells);
 });
 
