@@ -469,7 +469,6 @@ let skipSingles = false;
 let moveCounter = 0;
 const solveSudoku = () => {
   do {
-    updateUI(cells);
     do {
       clearCandidateNumbers(cells);
       const clearOldBannedNumbers = function (cellsArr) {
@@ -568,7 +567,6 @@ const solveSudoku = () => {
           }
         });
       }
-      updateUI(cells);
     } while (numbersFilledThisIteration !== 0 && !isGameFinished(cells));
 
     // If no single solutions has been found, start looking through
@@ -613,7 +611,6 @@ const solveSudoku = () => {
           break;
         }
       }
-      updateUI(cells);
       // If we are not making any moves, and came is not complete we
       // have come to a stalemate and need to reverse, and stop reversing
       // at the first "multiple choice".
@@ -662,7 +659,6 @@ const solveSudoku = () => {
     numbersFilledThisIteration > 0 &&
     moveLogg.length > 0
   );
-  updateUI(cells);
   console.log(`Total moves done (adds and removals): ${moveCounter}`);
 };
 btnExample.addEventListener("click", function (e) {
@@ -688,4 +684,5 @@ btnSolve.addEventListener("click", function (e) {
   e.preventDefault();
   fillBoard();
   solveSudoku();
+  updateUI(cells);
 });
